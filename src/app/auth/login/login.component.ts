@@ -51,6 +51,7 @@ export class LoginComponent implements AfterViewInit{
       this.loginService.loginGoogle(response.credential)
         .subscribe(res=>{
           this.ngzone.run(()=>{
+            localStorage.setItem('email',res.email);
             this.router.navigateByUrl('/');
           })
         },(err)=>{

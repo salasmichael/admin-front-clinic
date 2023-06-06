@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { UsuarioService } from '../../services/usuarios/usuario.service';
+import { Usuario } from '../../models/usuario.model';
+import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/auth/login.service';
 
 @Component({
@@ -9,10 +12,27 @@ import { LoginService } from 'src/app/services/auth/login.service';
 })
 export class HeaderComponent {
 
-  constructor(private loginService:LoginService) { }
+  public usuario: Usuario;
 
-  logout(){
+  constructor( private usuarioService: UsuarioService,
+               private router: Router,
+               private loginService:LoginService ) {
+    this.usuario = usuarioService.usuario;
+    console.log(this.usuario);
+    
+  }
+
+  logout() {
     this.loginService.logout();
+  }
+
+  buscar( termino: string ) {
+
+    if ( termino.length === 0  ) {
+      return;
+    }
+
+    this.router.navigateByUrl(`/dashboard/buscar/${ termino }`);
   }
 
 }
