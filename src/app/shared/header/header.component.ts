@@ -18,7 +18,6 @@ export class HeaderComponent {
                private router: Router,
                private loginService:LoginService ) {
     this.usuario = usuarioService.usuario;
-    console.log(this.usuario);
     
   }
 

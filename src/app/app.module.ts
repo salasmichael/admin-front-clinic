@@ -8,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 
 import { AppComponent } from './app.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './interceptors/interceptor.service';
 
 
 
@@ -23,6 +25,12 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
     AppRoutingModule,
     PagesModule,
     AuthModule
+  ],
+  providers:[{ 
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi:true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -15,24 +15,12 @@ export class HospitalService {
 
 
   constructor( private http: HttpClient ) { }
-
-  get token(): string {
-    return localStorage.getItem('token') || '';
-  }
-
-  get headers() {
-    return {
-      headers: {
-        'x-token': this.token
-      }
-    }
-  }
-
+ 
 
   cargarHospitales() {
 
     const url = `${ base_url }/hospitales`;
-    return this.http.get<any>( url, this.headers )
+    return this.http.get<any>( url )
               .pipe(
                 map( (resp: {ok: boolean, hospitales: Hospital[] }) => resp.hospitales )
               );
@@ -41,19 +29,19 @@ export class HospitalService {
   crearHospital( nombre: string ) {
 
     const url = `${ base_url }/hospitales`;
-    return this.http.post( url, { nombre }, this.headers );
+    return this.http.post( url, { nombre } );
   }
   
   actualizarHospital( _id: string, nombre: string  ) {
 
     const url = `${ base_url }/hospitales/${ _id }`;
-    return this.http.put( url, { nombre }, this.headers );
+    return this.http.put( url, { nombre } );
   }
 
   borrarHospital( _id: string ) {
 
     const url = `${ base_url }/hospitales/${ _id }`;
-    return this.http.delete( url, this.headers );
+    return this.http.delete( url );
   }
 
 }

@@ -15,23 +15,11 @@ export class MedicoService {
 
   constructor( private http: HttpClient ) { }
 
-  get token(): string {
-    return localStorage.getItem('token') || '';
-  }
-
-  get headers() {
-    return {
-      headers: {
-        'x-token': this.token
-      }
-    }
-  }
-
-
+ 
   cargarMedicos() {
 
     const url = `${ base_url }/medicos`;
-    return this.http.get<any>( url, this.headers )
+    return this.http.get<any>( url)
               .pipe(
                 map( (resp: {ok: boolean, medicos: Medico[] }) => resp.medicos )
               );
@@ -40,7 +28,7 @@ export class MedicoService {
   obtenerMedicoPorId( id: string ) {
 
     const url = `${ base_url }/medicos/${ id }`;
-    return this.http.get<any>( url, this.headers )
+    return this.http.get<any>( url)
               .pipe(
                 map( (resp: {ok: boolean, medico: Medico }) => resp.medico )
               );
@@ -49,19 +37,19 @@ export class MedicoService {
   crearMedico( medico: { nombre: string, hospital: string } ) {
 
     const url = `${ base_url }/medicos`;
-    return this.http.post( url, medico, this.headers );
+    return this.http.post( url, medico);
   }
   
   actualizarMedico( medico: Medico  ) {
 
     const url = `${ base_url }/medicos/${ medico._id }`;
-    return this.http.put( url, medico, this.headers );
+    return this.http.put( url, medico);
   }
 
   borrarMedico( _id: string ) {
 
     const url = `${ base_url }/medicos/${ _id }`;
-    return this.http.delete( url, this.headers );
+    return this.http.delete( url);
   }
 
 }
